@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_event_rule" "stg-summarize_daily_client_information" {
   name                  = "stg-summarize_daily_client_information"
   description           = "stg-summarize_daily_client_information"
-  schedule_expression   = "cron(0/15 * * * ? *)"
+  schedule_expression   = "cron(30 23 * * ? *)"
 }
  
 resource "aws_cloudwatch_event_target" "stg-summarize_daily_client_information" {
@@ -12,7 +12,7 @@ resource "aws_cloudwatch_event_target" "stg-summarize_daily_client_information" 
   input = jsonencode({
   "containerOverrides": [
     {
-      "name": "stg-summarize_daily_client_information",
+      "name": "stg-matsuhub-api",
       "command": ["bundle", "exec", "rake", "summarize_daily_client_information:run"]
     }
   ]
