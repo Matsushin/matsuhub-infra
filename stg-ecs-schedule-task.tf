@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_event_rule" "stg-summarize_daily_client_information" {
   name                  = "stg-summarize_daily_client_information"
   description           = "stg-summarize_daily_client_information"
-  schedule_expression   = "cron(30 23 * * ? *)"
+  schedule_expression   = "cron(45 23 * * ? *)"
 }
  
 resource "aws_cloudwatch_event_target" "stg-summarize_daily_client_information" {
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_event_target" "stg-summarize_daily_client_information" 
         aws_security_group.allow_api.id,
         aws_security_group.allow_all_outbound.id
       ]
-      assign_public_ip        = false
+      assign_public_ip        = true
     }
   }
 }
