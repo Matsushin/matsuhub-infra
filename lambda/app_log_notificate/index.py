@@ -50,7 +50,8 @@ def post_to_slack(log_entire_len: int, data_dict: dict, log_url:str):
             data_dict["logEvents"][i], ensure_ascii=False))
         try:
             message_str = log_dict["message"]
-            message_dict = json.loads('{"log":"' + message_str + '"}')
+            message_dict = json.loads('{"log": ""}')
+            message_dict['log'] = message_str
             message_dict['log_url'] = log_url
             message = json.dumps(message_dict)
             send_data = {
@@ -58,8 +59,6 @@ def post_to_slack(log_entire_len: int, data_dict: dict, log_url:str):
                 "icon_emoji": "aws",
                 "text": message,
             }
-            print ('=== post_to_slack ===')
-            print (message)
             r = request.Request(
                 url=os.environ['WEB_HOOK_URL'],
                 data=json.dumps(send_data).encode('utf-8')
